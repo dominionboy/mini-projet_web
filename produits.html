@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+    {% block content %}
+    <div class="container">
+        <h1 class="text-center my-4">Nos produits</h1>
+        {% for i in range(0, produits|length, 3) %}
+        <div class="row justify-content-center">
+            {% for p in produits[i:i+3] %}
+                <div class="col-4 mb-4 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ url_for('static', filename='images/' + p.image) }}" class="card-img-top" alt="image du produit">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ p.nom }}</h5>
+                            <p class="card-text">{{ p.prix }}</p>
+                            <a href="{{ url_for('ajouter_panier', id=p.id) }}" class="btn btn-danger">Ajouter au panier</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+    

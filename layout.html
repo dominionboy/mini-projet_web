@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Maillot4Me</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    </head>
+    <body style="background-color: #E9F1FA;">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #29659b;" data-bs-theme="light">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white text-decoration-none" href="{{ url_for('produits') }}">Maillot4Me</a>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-secondary" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+                <a href="/panier" class="btn btn-secondary">
+                    <i class="bi bi-cart2 me-2"></i> Panier
+                </a>
+            </div>
+        </nav>
+        <div class="container mt-4">
+        {% block content %} {% endblock %}
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

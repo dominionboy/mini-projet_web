@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+    {% block content %}
+    <div class="container">
+        <h1 class="text-center my-4">Votre panier</h1>
+        {% if panier %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Prix</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set total = 0 %}
+                    {% for item in panier %}
+                        <tr>
+                            <td>{{ item.nom }}</td>
+                            <td>{{ item.prix }} CHF</td>
+                            <td>
+                                <img src="{{ url_for('static', filename='images/' + item.image) }}" class="img-fluid" alt="image du produit" style="width: 50px; height: 50px;">
+                            </td>
+                        </tr>
+                        {% set total = total + item.prix %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h3 class="text-end">Total: {{ total }} CHF</h3>
+
+            <a href="{{ url_for('valider_commande')}}" class="btn btn-success">Valider la commande</a>
+            <a href="{{ url_for('vider_panier') }}" class="btn btn-danger">Vider le panier</a>
+
+        {% else %}
+            <p class="text-center">Votre panier est vide.</p>
+            <a href="{{ url_for('produits') }}" class="btn btn-primary">Voir les produits</a>
+        {% endif %}
+    </div>
+    {% endblock %}
+    
+
+
+
