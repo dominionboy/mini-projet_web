@@ -72,6 +72,13 @@ def valider_commande():
     session.pop('panier', None)
     return render_template('confirmation.html')
 
+@app.route('/recherche')
+def recherche():
+    query = request.args.get('requete','').lower()
+    resultats = Produit.query.filter(Produit.nom.ilike(f'%{query}%')).all()
+    return render_template('produits.html', produits=resultats)
+
+
 
 
 
