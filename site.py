@@ -78,6 +78,10 @@ def recherche():
     resultats = Produit.query.filter(Produit.nom.ilike(f'%{query}%')).all()
     return render_template('produits.html', produits=resultats)
 
+@app.route('confirmer_paiement')
+def confirmer_paiement():
+    return render_templates('paiement_confirmee.html')
+
 
 
 
