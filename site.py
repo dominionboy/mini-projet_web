@@ -24,7 +24,7 @@ with app.app_context():
             Produit(nom='Allemagne 2024/25', prix=79.95, image='allemagne.png'),
             Produit(nom='Arsenal 2024/25', prix=69.95, image='arsenal.png'),
             Produit(nom='Barcelone 2024/25', prix=69.95, image='barca.png'),
-            Produit(nom='Côte d’Ivoire 2024/25', prix=79.95, image='cote.png'),
+            Produit(nom="Côte d’Ivoire 2024/25", prix=79.95, image='cote.png'),
             Produit(nom='Espagne 2024/25', prix=79.95, image='espagne.png'),
             Produit(nom='Real Madrid 2024/25', prix=69.95, image='real.png'),
             Produit(nom='Japon 2024/25', prix=79.95, image='japon1.png'),
