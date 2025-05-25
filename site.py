@@ -70,7 +70,8 @@ def vider_panier():
 @app.route('/valider_commande')
 def valider_commande():
     session.pop('panier', None)
-    return render_template('confirmation.html')
+    return render_template('paiement_confirmee.html')
+
 
 @app.route('/recherche')
 def recherche():
@@ -78,9 +79,17 @@ def recherche():
     resultats = Produit.query.filter(Produit.nom.ilike(f'%{query}%')).all()
     return render_template('produits.html', produits=resultats)
 
-@app.route('confirmer_paiement')
+@app.route('/confirmer_paiement')
 def confirmer_paiement():
-    return render_templates('paiement_confirmee.html')
+    return render_template('paiement_confirmee.html')
+
+@app.route('/paiement', methods=['GET', 'POST'])
+def paiement():
+    if request.method == 'POST':
+        # Ici tu pourrais enregistrer les infos si besoin
+        session.pop('panier', None)
+        return render_template('paiement_confirmee.html')
+    return render_template('paiement.html')
 
 
 
