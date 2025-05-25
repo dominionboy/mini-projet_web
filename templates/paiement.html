@@ -52,19 +52,19 @@
             <div class="col-auto mb-3">
                 <div class="position-absolute top-50 start-0">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="mastercard" id="cradio1">
+                        <input class="form-check-input" type="radio" name="payment_method" id="cradio1">
                         <label class="form-check-label" for="radioDefault1">
                           Mastercard
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="postfinance" id="cradio2" checked>
+                        <input class="form-check-input" type="radio" name="payment_method" id="cradio2" checked>
                         <label class="form-check-label" for="radioDefault2">
                           Postfinance
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="twint" id="cradio3" checked>
+                        <input class="form-check-input" type="radio" name="payment_method" id="cradio3" checked>
                         <label class="form-check-label" for="radioDefault3">
                           Twint
                         </label>
@@ -73,7 +73,7 @@
             </div>
             <div class="col-7">
                 <label for="namecard" class="form-label">Nom sur la carte</label>
-                <intput type="text" class="form-control" id="namecard" name="namecard" required>
+                <input type="text" class="form-control" id="namecard" name="namecard" required>
             </div>
             <div class="col-5">
                 <label for="numcard" class="form-label">Numéro de carte</label>
@@ -92,22 +92,24 @@
                 <button class="w-100 btn btn-primary" href="{{ url_for('confirmer_paiement')}}" type="submit">Payer</button>
                 </div>
         </div>
-    </div>
+    
         <div class="col-md-5 col-lg-4 mb-3 order-last">
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <div class="container mt-4">
+                <div class="row justify-content-center">
+                  {% for produit in produits %}
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                      <div class="card h-100 text-center">
+                        <img src="{{ url_for('static', filename='img/' ~ produit.image) }}" class="card-img-top" alt="{{ produit.nom }}">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ produit.nom }}</h5>
+                          <p class="card-text">{{ produit.prix }} CHF</p>
+                          <a href="{{ url_for('ajouter_panier', id=produit.id) }}" class="btn btn-primary">Ajouter au panier</a>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+        </div>
+    </div>
     {% endblock %}
