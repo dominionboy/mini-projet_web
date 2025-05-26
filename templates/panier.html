@@ -28,7 +28,7 @@
             </table>
             <h3 class="text-end mt-3 ">Total: {{ '%.2f' | format(tot) }} CHF</h3>
             <div class="text-center mb-4">
-            <a href="{{ url_for('valider_commande')}}" class="btn btn-success">Valider la commande</a>
+            <a href="{{ url_for('paiement')}}" class="btn btn-success">Valider la commande</a>
             <a href="{{ url_for('vider_panier') }}" class="btn btn-danger">Vider le panier</a>
 </div>
         {% else %}
