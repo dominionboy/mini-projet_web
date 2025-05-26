@@ -60,8 +60,7 @@ def ajouter_panier(id):
 @app.route('/panier')
 def panier():
     panier = session.get('panier', [])
-    total = sum(maillure['prix'] for maillure in panier)
-    return render_template('panier.html', panier=panier,tot=total)
+    return render_template('panier.html', panier=panier)
 
 @app.route('/vider_panier')
 def vider_panier():

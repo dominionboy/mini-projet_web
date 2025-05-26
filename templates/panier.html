@@ -22,15 +22,15 @@
                                 <img src="{{ url_for('static', filename='images/' + item.image) }}" class="img-fluid" alt="image du produit" style="width: 50px; height: 50px;">
                             </td>
                         </tr>
-                        {% set total = total + item.prix %}
+                        
                     {% endfor %}
                 </tbody>
             </table>
-            <h3 class="text-end">Total: {{ total }} CHF</h3>
-
+            <h3 class="text-end mt-3 ">Total: {{ '%.2f' | format(tot) }} CHF</h3>
+            <div class="text-center mb-4">
             <a href="{{ url_for('valider_commande')}}" class="btn btn-success">Valider la commande</a>
             <a href="{{ url_for('vider_panier') }}" class="btn btn-danger">Vider le panier</a>
-
+</div>
         {% else %}
             <p class="text-center">Votre panier est vide.</p>
             <a href="{{ url_for('produits') }}" class="btn btn-primary">Voir les produits</a>

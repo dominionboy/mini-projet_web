@@ -1,6 +1,20 @@
 {% extends "layout.html" %}
 
     {% block content %}
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #29659b;" data-bs-theme="light">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white text-decoration-none" href="{{ url_for('produits') }}">Maillot4Me</a>
+                <form class="d-flex" method="get" action="{{ url_for('recherche')}}">
+                    <input class="form-control me-2" type="search" placeholder="Rechercher un article" name="requete" aria-label="Search">
+                    <button class="btn btn-secondary" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+                <a href="/panier" class="btn btn-secondary">
+                    <i class="bi bi-cart2 me-2"></i> Panier
+                </a>
+            </div>
+        </nav>
     <div class="container">
         <h1 class="text-center my-4">Nos produits</h1>
         {% for i in range(0, produits|length, 3) %}
