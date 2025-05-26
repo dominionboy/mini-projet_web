@@ -71,7 +71,7 @@ def vider_panier():
 @app.route('/valider_commande')
 def valider_commande():
     session.pop('panier', None)
-    return render_template('paiement_confirmee.html')
+    return render_template('paiement.html')
 
 
 @app.route('/recherche')
