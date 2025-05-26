@@ -8,6 +8,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///produits.db'
 app.debug = True
 db = SQLAlchemy(app)
 
+
+def prix_total():
+    panier = session.get('panier', [])
+    return sum(maillure['prix'] for maillure in panier)
+
 class Produit(db.Model):    #attention ici "Produit", les 3 ont une utilité différente
     id = db.Column(db.Integer, primary_key=True)
     nom = db.Column(db.String(100), nullable=False)
@@ -60,8 +65,8 @@ def ajouter_panier(id):
 @app.route('/panier')
 def panier():
     panier = session.get('panier', [])
-    total = sum(maillure['prix'] for maillure in panier)
-    return render_template('panier.html', panier=panier,tot=total)
+    
+    return render_template('panier.html', panier=panier,tot=prix_total())
 
 @app.route('/vider_panier')
 def vider_panier():
@@ -83,12 +88,14 @@ def confirmer_paiement():
 
 @app.route('/paiement', methods=['GET', 'POST'])
 def paiement():
+    total=prix_total()
+    panier=session.pop('panier', None)
     if request.method == 'POST':
         # Ici tu pourrais enregistrer les infos si besoin
-        session.pop('panier', None)
+        
         return render_template('paiement_confirmee.html')
     produits = Produit.query.all()
-    return render_template('paiement.html', prods=produits)
+    return render_template('paiement.html', prods=produits,tot=total, panier=panier)
 
 
 
