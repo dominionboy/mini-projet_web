@@ -12,8 +12,15 @@
         <div class="container mt-4">
         {% block content %} {% endblock %}
         </div>
+        <div class="container mb-0 bg-primary">
+            <div class="row mb-0">
+                <div class="col text-center">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Maillot4Me" height="60">
+                    </div>
+            </div>
+        </div>
         {% block footer %}
-        <footer class="text-center mt-4">
+        <footer class="text-center mt-4 bg-primary-subtle text-white">
             <p>&copy; 2025 Maillot4Me Tous droits réservés.</p>
             <a href="{{ url_for('produits') }}" class="btn btn-success">Acceuil</a>
             </footer>
