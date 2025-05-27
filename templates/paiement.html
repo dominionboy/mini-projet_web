@@ -92,7 +92,7 @@
             </div>
             <hr>
             <div class="col-12">
-                <button class="w-100 btn btn-primary" type="submit">Payer</button>
+                <a href="{{ url_for('confirmer_paiement') }}" class="w-100 btn btn-primary" type="submit">Payer</button>
                 </div>
         </form>
         </div>
@@ -121,7 +121,4 @@
                 </div>
                 </div>
 
-                {% endblock 
-                
-                
-            %}
+                {% endblock %}
