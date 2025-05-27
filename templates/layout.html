@@ -12,20 +12,20 @@
         <div class="container mt-4">
         {% block content %} {% endblock %}
         </div>
-        <div class="container mb-0 bg-primary">
+        <div class="container mb-0" style="background-color: #29659b;">
             <div class="row mb-0">
-                <div class="col text-center">
+                <div class="col text-center mx-0 mt-4 mb-0">
                     <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Maillot4Me" height="60">
                     </div>
             </div>
         </div>
-        {% block footer %}
-        <footer class="text-center mt-4 bg-primary-subtle text-white">
-            <p>&copy; 2025 Maillot4Me Tous droits réservés.</p>
-            <a href="{{ url_for('produits') }}" class="btn btn-success">Acceuil</a>
+        <footer class="text-center mt-0 text-white" style="background-color: black;">
+            <div>
+                <br>
+                <p>&copy; 2025 Maillot4Me Tous droits réservés.</p>
+            </div>
             </footer>
-        {% endblock %}
-
+                
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
