@@ -9,10 +9,6 @@ app.debug = True
 db = SQLAlchemy(app)
 
 
-def prix_total():
-    panier = session.get('panier', [])
-    return sum(maillure['prix'] for maillure in panier)
-
 class Produit(db.Model):    #attention ici "Produit", les 3 ont une utilité différente
     id = db.Column(db.Integer, primary_key=True)
     nom = db.Column(db.String(100), nullable=False)
@@ -44,9 +40,10 @@ def produits():     #attention ici "produits"
     produits = Produit.query.all()
     return render_template('produits.html', produits=produits)
 
-@app.route('/ajouter_panier/<int:id>')
+@app.route('/ajouter_panier/<int:id>', methods=['POST'])
 def ajouter_panier(id):
     produit = Produit.query.get_or_404(id)  #attention ici "produit"
+    taille = request.form.get('taille', 'M') 
 
     if 'panier' not in session:
         session['panier'] = []
@@ -56,7 +53,8 @@ def ajouter_panier(id):
         'id': produit.id,
         'nom': produit.nom,
         'prix': produit.prix,
-        'image': produit.image
+        'image': produit.image,
+        'taille': taille
     })
     session['panier'] = panier  #mise a jour session panier
     return redirect(url_for('produits'))
@@ -75,7 +73,6 @@ def vider_panier():
 
 
 
-
 @app.route('/recherche')
 def recherche():
     query = request.args.get('requete','').lower()
@@ -83,6 +80,9 @@ def recherche():
     return render_template('produits.html', produits=resultats)
 
 
+def prix_total():
+    panier = session.get('panier', [])
+    return sum(maillure['prix'] for maillure in panier)
 
 @app.route('/paiement', methods=['GET', 'POST'])
 def paiement():
@@ -94,8 +94,6 @@ def paiement():
         return render_template('paiement_confirmee.html')
     produits = Produit.query.all()
     return render_template('paiement.html', prods=produits,tot=total, panier=panier)
-
-
 
 
 
