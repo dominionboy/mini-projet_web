@@ -49,12 +49,19 @@ def ajouter_panier(id):
         session['panier'] = []
     
     panier = session['panier']
-    panier.append({
-        'id': produit.id,
-        'nom': produit.nom,
-        'prix': produit.prix,
-        'image': produit.image,
-        'taille': taille
+
+    for item in panier:
+        if item['id'] == produit.id and item['taille'] == taille:
+            item['quantite'] += 1
+            break
+    else:
+        panier.append({
+            'id': produit.id,
+            'nom': produit.nom,
+            'prix': produit.prix,
+            'image': produit.image,
+            'taille': taille
+            'quantite': 1
     })
     session['panier'] = panier  #mise a jour session panier
     return redirect(url_for('produits'))
@@ -82,7 +89,7 @@ def recherche():
 
 def prix_total():
     panier = session.get('panier', [])
-    return sum(maillure['prix'] for maillure in panier)
+    return sum(item['prix']* item['quantite'] for item in panier)
 
 @app.route('/paiement', methods=['GET', 'POST'])
 def paiement():
@@ -94,6 +101,33 @@ def paiement():
         return render_template('paiement_confirmee.html')
     produits = Produit.query.all()
     return render_template('paiement.html', prods=produits,tot=total, panier=panier)
+
+@app.route('/supprimer_panier/<int:index>')
+def supprimer_panier(index):
+    panier = session.get('panier', [])
+    if 0 <= index < len(panier):
+        panier.pop(index)
+        session['panier'] = panier
+    return redirect(url_for('panier'))
+
+@app.route('/augemanter/<int: index>')
+def augemanter(index):
+    panier = session.get('panier', [])
+    if 0 <= index < len(panier):
+        panier[index]['quantite'] += 1
+        session['panier'] = panier
+    return redirect(url_for('panier'))
+    
+@app.route('/diminuer/<int:index>')
+def diminuer(index):
+    panier = session.get('panier', [])
+    if 0 <= index < len(panier):
+        if panier[index]['quantite'] > 1:
+            panier[index]['quantite'] -= 1
+        else:
+            panier.pop(index)
+        session['panier'] = panier
+    return redirect(url_for('panier'))
 
 
 
