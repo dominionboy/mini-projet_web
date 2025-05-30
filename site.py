@@ -31,6 +31,9 @@ with app.app_context():
             Produit(nom='Japon 2024/25', prix=79.95, image='japon1.png'),
             Produit(nom='Brésil 2024/25', prix=79.95, image='bresil1.png'),
             Produit(nom='Mexique 2024/25', prix=79.95, image='mexique1.png'),
+            Produit(nom='Barcelone 2015/16', prix=20.00, image='barcelone_2015-2016.png'),
+            Produit(nom='Paris 2021/22', prix=109.98, image='Paris.png'),
+            Produit(nom='Barcelone 2009/10 maillot enfant (Messi)', prix=49.98, image='barcamessi.png'),
         ]
         db.session.add_all(produits)
         db.session.commit()
