@@ -30,11 +30,11 @@
                                 <div class="btn-group" role="group">
                                     <a href="{{ url_for('diminuer', index=loop.index0) }}" class="btn btn-sm btn-outline-secondary">-</a>
                                     <span class="btn btn-sm btn-light disabled">{{ item.quantite }}</span>
-                                    <a href="{{ url_for('augemanter', index=loop.index0, ajouter=True) }}" class="btn btn-sm btn-outline-secondary">+</a>
+                                    <a href="{{ url_for('augmanter', index=loop.index0, ajouter=True) }}" class="btn btn-sm btn-outline-secondary">+</a>
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ url_for('supprimer_du_panier', index=loop.index0) }}" class="btn btn-danger btn-sm">
+                                <a href="{{ url_for('supprimer_panier', index=loop.index0) }}" class="btn btn-danger btn-sm">
                                     <i class="bi bi-trash"></i> Supprimer
                                 </a>
                             </td>

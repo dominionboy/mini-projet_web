@@ -60,8 +60,8 @@ def ajouter_panier(id):
             'nom': produit.nom,
             'prix': produit.prix,
             'image': produit.image,
-            'taille': taille
-            'quantite': 1
+            'taille': taille,
+            'quantite': 1,
     })
     session['panier'] = panier  #mise a jour session panier
     return redirect(url_for('produits'))
@@ -110,14 +110,14 @@ def supprimer_panier(index):
         session['panier'] = panier
     return redirect(url_for('panier'))
 
-@app.route('/augemanter/<int: index>')
-def augemanter(index):
+@app.route('/augmanter/<int:index>')
+def augmanter(index):
     panier = session.get('panier', [])
     if 0 <= index < len(panier):
         panier[index]['quantite'] += 1
         session['panier'] = panier
     return redirect(url_for('panier'))
-    
+
 @app.route('/diminuer/<int:index>')
 def diminuer(index):
     panier = session.get('panier', [])
