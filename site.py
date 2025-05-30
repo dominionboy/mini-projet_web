@@ -10,7 +10,7 @@ db = SQLAlchemy(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
+    username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
 
 
@@ -147,7 +147,10 @@ def register():
         user = User(username=username, email=email)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('login'))
+
+        session['user_id'] = user.id
+        session['username'] = user.username
+        return redirect(url_for('produits'))
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -158,6 +161,7 @@ def login():
         user = User.query.filter_by(username=username, email=email).first()
         if user:
             session['user_id'] = user.id
+            session['username'] = user.username
             return redirect(url_for('produits'))
         return "Invalid credentials", 401
     return render_template('login.html')
