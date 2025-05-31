@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session
 from flask import redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from flask import flash
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -206,7 +207,8 @@ def login():
             session['user_id'] = user.id
             session['username'] = user.username
             return redirect(url_for('produits'))
-        return "Invalid credentials", 401
+        flash("Ton compte il existe pas fréro","danger")
+        return render_template("login.html")
     return render_template('login.html')
 
 @app.route('/logout')
