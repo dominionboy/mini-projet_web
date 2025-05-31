@@ -8,45 +8,39 @@
             
         <form method="post" action="{{ url_for('paiement') }}">
             <div class="row g-3">
+                {% if not user %}
                 <div class="col-sm-6">
                     <label for="nom" class="form-label"><i class="bi bi-person"></i> Nom</label>
-                    <input type="text" class="form-control" id="nom" name="nom" required>
+                    <input type="text" class="form-control" id="nom" name="nom" value="{{ user.nom if user else '' }}" required>
                 </div>
                 <div class="col-sm-6">
                     <label for="prenom" class="form-label">Prenom</label>
-                    <input type="text" class="form-control" id="prenom" name="prenom" required>
+                    <input type="text" class="form-control" id="prenom" name="prenom" value="{{ user.prenom if user else '' }}" required>
                 </div>
                 <div class="col-12">
                     <label for="email" class="form-label"><i class="bi bi-envelope"></i> Email </label>
-                    <input type="text" class="form-control" id="email" name="email" required>
+                    <input type="text" class="form-control" id="email" name="email" value="{{ user.email if user else '' }}" required>
                 </div>
-                <div class="col-12">
-                    <label for="adresse" class="form-label">Adresse</label>
-                    <input type="text" class="form-control" id="adresse" name="adresse" required>
-                    </div>
+               
                 <div class="col-sm-5">
                     <label for="pays" class="form-label"><i class="bi bi-flag"></i> Pays</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>-- choisir le pays --</option>
-                        <option value="1">Allemagne</option>
-                        <option value="2">Autriche</option>
-                        <option value="3">Bosnie</option>
-                        <option value="3">France</option>
-                        <option value="4">Italie</option>
-                        <option value="5">Luxembourg</option>
-                        <option value="6">Suisse</option>
-                        <option value="7">Zimbabwe</option>
-                        <option value="8">Autre</option>
-                      </select>
+                <input type="text" class="form-control" id="pays" name="pays" value="{{ user.pays if user else '' }}" required>   
                 </div>
+
+                 <div class="col-12">
+                    <label for="adresse" class="form-label">Adresse</label>
+                    <input type="text" class="form-control" id="adresse" name="adresse" value="{{ user.adresse if user else '' }}" required>
+                    </div>
+                    
                 <div class="col-sm-4">
                     <label for="Ville" class="form-label">Ville</label>
-                    <input type="text" class="form-control" id="ville" name="ville" required>
+                    <input type="text" class="form-control" id="ville" name="ville" value="{{ user.ville if user else '' }}" required>
                     </div>
                 <div class="col-sm-3">
-                    <label for="codePostal" class="form-label">Code postal</label>
-                    <input type="text" class="form-control" id="codePostal" name="codePostal" required>
+                    <label for="code_postal" class="form-label">Code postal</label>
+                    <input type="text" class="form-control" id="code_postal" name="code_postal" value="{{ user.code_postal if user else '' }}" required>
                     </div>
+                    {% endif %}
             </div>
             <hr>
             <h2 class="mb-3">Mode de paiement <i class="bi bi-credit-card-fill"></i></h2>
