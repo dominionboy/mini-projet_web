@@ -108,32 +108,42 @@ def prix_total():
 
 @app.route('/paiement', methods=['GET', 'POST'])
 def paiement():
-    total=prix_total()
-    panier=session.pop('panier', None)
-
-    user=None
-    if 'user_id' in session:
-        user = User.query.get(session['user_id'])
+    user = User.query.get(session['user_id']) if 'user_id' in session else None
+    total = prix_total()
+    produits = Produit.query.all()
 
     if request.method == 'POST':
         if user:
-            pass
+            session.pop('panier', None)
+            return render_template('paiement_confirmee.html', user=user)
         else:
-            nom=request.form['nom']
-            prenom=request.form['prenom']
-            email=request.form['email']
-            adresse=request.form['adresse']
-            code_postal=request.form['code_postal']
-            pays=request.form['pays']
-            ville=request.form['ville']
-            return render_template('paiement_confirmee.html', nom=nom, prenom=prenom,
-                email=email, adresse=adresse, ville=ville,
-                code_postal=code_postal, pays=pays)
-    produits = Produit.query.all()
-    return render_template('paiement.html', prods=produits,tot=total, panier=panier,user=user if user else'', nom=user.nom if user else'', 
-                           prenom=user.prenom if user else'',email=user.email if user else'',
-                           adresse=user.adresse if user else'',ville=user.ville if user else'',
-                           code_postal=user.code_postal if user else'',pays=user.pays if user else'')
+            infos = {
+                'nom': request.form['nom'],
+                'prenom': request.form['prenom'],
+                'email': request.form['email'],
+                'adresse': request.form['adresse'],
+                'ville': request.form['ville'],
+                'code_postal': request.form['code_postal'],
+                'pays': request.form['pays']
+            }
+            session.pop('panier', None)
+            return render_template('paiement_confirmee.html', infos=infos)
+
+    # ici on est en GET : on montre la page avec le panier, il ne faut PAS vider
+    panier = session.get('panier', [])
+    return render_template('paiement.html',
+                           prods=produits,
+                           tot=total,
+                           panier=panier,
+                           user=user,
+                           nom=user.nom if user else '',
+                           prenom=user.prenom if user else '',
+                           email=user.email if user else '',
+                           adresse=user.adresse if user else '',
+                           ville=user.ville if user else '',
+                           code_postal=user.code_postal if user else '',
+                           pays=user.pays if user else '')
+
 
 @app.route('/supprimer_panier/<int:index>')
 def supprimer_panier(index):
